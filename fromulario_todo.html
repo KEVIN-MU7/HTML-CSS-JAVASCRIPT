@@ -1,0 +1,105 @@
+<html>
+<head>
+    <title>Formulario de Registro</title>
+    <style>
+        body { font-family: Arial; background-color: #f4f4f4; }
+        .contenedor { background-color: white; width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ccc; }
+        h2 { text-align: center; color: #2c75a3; }
+        .campo { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="text"], input[type="password"], input[type="date"], select, textarea { width: 100%; padding: 8px; }
+        .error { color: red; font-size: 12px; display: none; }
+        .botones { text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor">
+        <h2>Registro de Usuario</h2>
+        <form id="formRegistro">
+            
+            <div class="campo">
+                <label>Nombres y Apellidos:</label>
+                <input type="text" id="nombre" required>
+            </div>
+
+            <div class="campo">
+                <label>Tipo de Documento:</label>
+                <select id="tipoDoc">
+                    <option>Cédula de Ciudadanía</option>
+                    <option>Tarjeta de Identidad</option>
+                    <option>Cédula de Extranjería</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Usuario (Letras y máx. 2 números):</label>
+                <input type="text" id="usuario" required>
+                <span id="errorUsuario" class="error">Usuario inválido (máx 2 números al final).</span>
+            </div>
+
+            <div class="campo">
+                <label>Contraseña (16 caracteres):</label>
+                <input type="password" id="pass" required>
+                <span id="errorPass" class="error">La contraseña debe tener 16 caracteres.</span>
+            </div>
+
+            <div class="campo">
+                <label>Fecha de Inscripción:</label>
+                <input type="date" id="fecha" min="2026-02-15" max="2026-03-06" required>
+            </div>
+
+            <div class="campo">
+                <label>Hobbies:</label>
+                <input type="checkbox"> Videojuegos <br>
+                <input type="checkbox"> Fútbol <br>
+                <input type="checkbox"> Programación <br>
+                <input type="checkbox"> Música
+            </div>
+
+            <div class="campo">
+                <label>Observaciones:</label>
+                <textarea id="obs" rows="4"></textarea>
+            </div>
+
+            <div class="botones">
+                <input type="submit" value="Enviar Datos">
+                <input type="reset" value="Limpiar Formulario">
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('formRegistro').addEventListener('submit', function(event) {
+            var user = document.getElementById('usuario').value;
+            var contra = document.getElementById('pass').value;
+            var valido = true;
+
+            
+            var filtroUsuario = /^[a-zA-Z]+[0-9]{0,2}$/;
+            if (!filtroUsuario.test(user)) {
+                document.getElementById('errorUsuario').style.display = 'block';
+                valido = false;
+            } else {
+                document.getElementById('errorUsuario').style.display = 'none';
+            }
+
+           
+            if (contra.length !== 16) {
+                document.getElementById('errorPass').style.display = 'block';
+                valido = false;
+            } else {
+                document.getElementById('errorPass').style.display = 'none';
+            }
+
+            if (!valido) {
+                event.preventDefault(); 
+            } else {
+                alert("Formulario enviado correctamente.");
+            }
+        });
+    </script>
+
+</body>
+</html>
